@@ -1,6 +1,5 @@
 // ============================================
 // HiCloud Insight 站点配置
-// 以后换LOGO、改站名、调配色，只改这个文件
 // ============================================
 window.SITE_CONFIG = {
   // 站点基础信息
@@ -9,24 +8,31 @@ window.SITE_CONFIG = {
   
   // LOGO 配置
   logo: {
-    src: "logo.png",       // LOGO 图片路径，换LOGO直接替换图片文件即可
+    src: "logo.png",
     alt: "HiCloud Insight",
-    width: "55px",         // 导航栏 LOGO 高度
-    footerWidth: "42px",   // 页脚 LOGO 高度
+    width: "40px",
+    footerWidth: "32px",
   },
   
-  // 配色系统（蓝紫科技风，匹配 LOGO）
+  // 配色系统（品牌蓝色系）
   colors: {
-    primary: "#6366F1",    // 主色：靛蓝
-    secondary: "#8B5CF6",  // 次色：紫罗兰
-    accent: "#A855F7",     // 强调色：紫
-    dark: "#1E1B4B",       // 深色背景
-    darkLight: "#312E81",  // 深色悬浮
-    gradient: "from-[#6366F1] via-[#8B5CF6] to-[#A855F7]", // Tailwind 渐变类
+    primary: "#2563EB",        // 主品牌蓝：Logo / 按钮 / Hover / 主要Icon
+    secondary: "#3B82F6",      // 次级蓝：渐变中间色
+    light: "#60A5FA",          // 浅科技蓝：Hover / 图标 / Dashboard
+    accent: "#38BDF8",         // 青蓝Accent：AI数据流 / 动态图表 / 高亮
+    dark: "#0F172A",           // 深海军蓝：Header / Footer / 深色背景
+    darkLight: "#1E293B",      // 深色悬浮态
+    pageBg: "#F8FAFC",         // 页面背景
+    cardBg: "#FFFFFF",         // 卡片背景（纯白）
+    textPrimary: "#111827",    // 主文字
+    textSecondary: "#64748B",  // 次文字
+    gradientStart: "#2563EB",
+    gradientMid: "#3B82F6",
+    gradientEnd: "#60A5FA",
   },
 };
 
-// 立即注入 CSS 变量（确保样式优先加载，避免闪烁）
+// 立即注入 CSS 变量
 (function() {
   var c = window.SITE_CONFIG.colors;
   var style = document.createElement("style");
@@ -34,25 +40,36 @@ window.SITE_CONFIG = {
     :root {
       --color-primary: ${c.primary};
       --color-secondary: ${c.secondary};
+      --color-light: ${c.light};
       --color-accent: ${c.accent};
       --color-dark: ${c.dark};
       --color-dark-light: ${c.darkLight};
+      --color-page-bg: ${c.pageBg};
+      --color-card-bg: ${c.cardBg};
+      --color-text-primary: ${c.textPrimary};
+      --color-text-secondary: ${c.textSecondary};
     }
     .bg-gradient-brand {
-      background: linear-gradient(135deg, ${c.primary} 0%, ${c.secondary} 50%, ${c.accent} 100%);
+      background: linear-gradient(180deg, ${c.gradientStart} 0%, ${c.gradientMid} 50%, ${c.gradientEnd} 100%);
     }
     .text-gradient-brand {
-      background: linear-gradient(135deg, ${c.primary}, ${c.accent});
+      background: linear-gradient(180deg, ${c.gradientStart}, ${c.gradientEnd});
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hover\:text-gradient-brand:hover {
-      background: linear-gradient(135deg, ${c.primary}, ${c.accent});
+      background: linear-gradient(180deg, ${c.gradientStart}, ${c.gradientEnd});
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    /* 全局文字颜色统一 */
+    body {
+      color: ${c.textPrimary};
+      background-color: ${c.pageBg};
+    }
+    .text-secondary { color: ${c.textSecondary}; }
   `;
   document.head.appendChild(style);
 })();
@@ -61,7 +78,6 @@ window.SITE_CONFIG = {
 document.addEventListener("DOMContentLoaded", function() {
   var cfg = window.SITE_CONFIG;
   
-  // 替换所有 .site-logo 图片
   document.querySelectorAll(".site-logo").forEach(function(img) {
     img.src = cfg.logo.src;
     img.alt = cfg.logo.alt;
@@ -74,11 +90,9 @@ document.addEventListener("DOMContentLoaded", function() {
     img.style.display = "block";
   });
   
-  // 替换站点名称
   document.querySelectorAll(".site-name").forEach(function(el) {
     el.textContent = cfg.siteName;
   });
   
-  // 更新页面标题
   document.title = cfg.siteName + " | " + cfg.siteTagline;
 });
