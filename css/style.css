@@ -396,37 +396,42 @@ p {
 /* ===================================
    FOOTER
 =================================== */
+
 .footer {
-  background-color: #F8FAFC;
+
   padding: 60px 0;
+
   border-top: 1px solid var(--light-gray);
+
 }
 
 .footer-wrapper {
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
 }
 
 .footer-links {
+
   display: flex;
   gap: 30px;
+
 }
 
 .footer-links a {
+
   color: var(--gray);
+
   transition: .3s;
+
 }
 
 .footer-links a:hover {
-  color: var(--primary);
-}
 
-/* 额外补充：修复页脚透明LOGO白底问题 */
-.footer-logo img {
-  background: transparent !important;
-  max-height: 42px;
-  width: auto;
+  color: var(--primary);
+
 }
 
 /* ===================================
