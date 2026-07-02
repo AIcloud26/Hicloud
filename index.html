@@ -93,18 +93,26 @@
         linear-gradient(90deg, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
       background-size: 50px 50px;
     }
+    
+    /* Honeypot 隐藏字段 */
+    .hp-field {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      height: 0;
+      width: 0;
+      overflow: hidden;
+    }
   </style>
 </head>
 <body class="bg-white text-gray-800 overflow-x-hidden">
-
   <!-- ========== 导航栏 ========== -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <!-- LOGO -->
-        <a href="#" class="flex items-center gap-3">
-          <img class="site-logo" src="logo.png" alt="HiCloud Insight" style="height: 32px; width: auto;">
-          <span class="site-name text-xl font-bold gradient-text">HiCloud Insight</span>
+        <a href="#" class="flex items-center">
+          <img class="site-logo" src="logo.png" alt="HiCloud Insight" style="height: 48px; width: auto;">
         </a>
         
         <!-- 导航链接 -->
@@ -138,7 +146,6 @@
       </div>
     </div>
   </nav>
-
   <!-- ========== Hero 区域 ========== -->
   <section class="relative min-h-screen flex items-center pt-20 bg-grid">
     <!-- 背景装饰 -->
@@ -226,7 +233,6 @@
       </div>
     </div>
   </section>
-
   <!-- ========== 服务区域 ========== -->
   <section id="services" class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-6">
@@ -241,8 +247,8 @@
         </p>
       </div>
       
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- 服务卡片 1 -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- 服务卡片 1 - Performance Marketing -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,7 +262,7 @@
           </p>
         </div>
         
-        <!-- 服务卡片 2 -->
+        <!-- 服务卡片 2 - Ad Exchange Platform -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -270,7 +276,7 @@
           </p>
         </div>
         
-        <!-- 服务卡片 3 -->
+        <!-- 服务卡片 3 - AI Content Studio -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,37 +290,7 @@
           </p>
         </div>
         
-        <!-- 服务卡片 4 -->
-        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Data Analytics</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Advanced attribution modeling, predictive analytics, and business intelligence 
-            dashboards that turn data into actionable growth strategies.
-          </p>
-        </div>
-        
-        <!-- 服务卡片 5 -->
-        <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
-            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"/>
-            </svg>
-          </div>
-          <h3 class="text-xl font-bold mb-3">Cloud Infrastructure</h3>
-          <p class="text-gray-600 leading-relaxed">
-            Enterprise-grade cloud solutions with 99.99% uptime SLA. Global CDN, edge computing, 
-            and auto-scaling infrastructure for high-performance delivery.
-          </p>
-        </div>
-        
-        <!-- 服务卡片 6 -->
+        <!-- 服务卡片 4 - Global Expansion -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -330,8 +306,7 @@
       </div>
     </div>
   </section>
-
-  <!-- ========== 解决方案 ========== -->
+  <!-- ========== Solutions ========== -->
   <section id="solutions" class="py-24">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
@@ -344,7 +319,7 @@
         </p>
       </div>
       
-      <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
         <div class="space-y-6">
           <div class="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
             For Game Publishers
@@ -437,7 +412,6 @@
       </div>
     </div>
   </section>
-
   <!-- ========== About ========== -->
   <section id="about" class="py-24 bg-gray-50">
     <div class="max-w-7xl mx-auto px-6">
@@ -451,10 +425,6 @@
             HiCloud Insight is a technology-driven marketing company specializing in 
             AI-powered advertising solutions and cloud-based digital infrastructure. 
             We bridge the gap between cutting-edge technology and real business results.
-          </p>
-          <p class="text-gray-600 text-lg leading-relaxed">
-            With offices across Asia, Europe, and North America, we serve 500+ clients 
-            globally, from innovative startups to Fortune 500 enterprises.
           </p>
           <div class="grid grid-cols-2 gap-6 pt-4">
             <div class="text-center p-6 bg-white rounded-2xl shadow-sm">
@@ -492,7 +462,6 @@
       </div>
     </div>
   </section>
-
   <!-- ========== CTA ========== -->
   <section class="py-24 relative overflow-hidden">
     <div class="absolute inset-0 bg-gradient-brand"></div>
@@ -515,129 +484,80 @@
       </div>
     </div>
   </section>
-
   <!-- ========== Contact ========== -->
   <section id="contact" class="py-24">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid lg:grid-cols-2 gap-16">
-        <div class="space-y-8">
-          <div>
-            <span class="text-primary font-semibold text-sm uppercase tracking-wider">Contact Us</span>
-            <h2 class="text-4xl font-bold mt-4 mb-6">
-              Let's Start Your <span class="gradient-text">Growth Journey</span>
-            </h2>
-            <p class="text-gray-600 text-lg">
-              Have a project in mind? We'd love to hear about it. 
-              Fill out the form and our team will get back to you within 24 hours.
-            </p>
+    <div class="max-w-2xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <span class="text-primary font-semibold text-sm uppercase tracking-wider">Contact Us</span>
+        <h2 class="text-4xl font-bold mt-4 mb-6">
+          Let's Start Your <span class="gradient-text">Growth Journey</span>
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Have a project in mind? We'd love to hear about it. 
+          Fill out the form and our team will get back to you within 48 working hours.
+        </p>
+      </div>
+      
+      <!-- 联系表单（居中） -->
+      <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
+        <form id="contactForm" class="space-y-6" onsubmit="return handleFormSubmit(event)">
+          <!-- Honeypot 反机器人字段 -->
+          <div class="hp-field" aria-hidden="true">
+            <label for="website">Leave this empty</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
           </div>
           
-          <div class="space-y-6">
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="font-medium text-gray-900">Email Us</div>
-                <div class="text-gray-600">contact@hicloudinsight.com</div>
-              </div>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+              <input type="text" name="firstName" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="John">
             </div>
-            
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="font-medium text-gray-900">Headquarters</div>
-                <div class="text-gray-600">Singapore · Hong Kong · London</div>
-              </div>
-            </div>
-            
-            <div class="flex items-center gap-4">
-              <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <div>
-                <div class="font-medium text-gray-900">Response Time</div>
-                <div class="text-gray-600">Within 24 hours</div>
-              </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+              <input type="text" name="lastName" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Doe">
             </div>
           </div>
-        </div>
-        
-        <!-- 联系表单 -->
-        <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-          <form class="space-y-6">
-            <div class="grid md:grid-cols-2 gap-6">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="John">
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Doe">
-              </div>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Work Email</label>
-              <input type="email" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="john@company.com">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
-              <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Your Company">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Service Interest</label>
-              <select class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
-                <option>Performance Marketing</option>
-                <option>Ad Exchange Platform</option>
-                <option>AI Content Studio</option>
-                <option>Data Analytics</option>
-                <option>Cloud Infrastructure</option>
-                <option>Other</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
-              <textarea rows="4" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all resize-none" placeholder="Tell us about your project..."></textarea>
-            </div>
-            <button type="button" class="w-full py-4 bg-gradient-brand text-white rounded-xl font-semibold hover:opacity-90 transition-all transform hover:scale-[1.02]">
-              Send Message
-            </button>
-          </form>
-        </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Work Email</label>
+            <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="john@company.com">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+            <input type="text" name="company" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Your Company">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Service Interest</label>
+            <select name="service" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+              <option>Performance Marketing</option>
+              <option>Ad Exchange Platform</option>
+              <option>AI Content Studio</option>
+              <option>Global Expansion</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+            <textarea name="message" rows="4" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+          </div>
+          <div id="formError" class="hidden text-red-500 text-sm text-center"></div>
+          <div id="formSuccess" class="hidden text-green-600 text-sm text-center font-medium"></div>
+          <button type="submit" class="w-full py-4 bg-gradient-brand text-white rounded-xl font-semibold hover:opacity-90 transition-all transform hover:scale-[1.02]">
+            Send Message
+          </button>
+        </form>
       </div>
     </div>
   </section>
-
   <!-- ========== Footer ========== -->
   <footer class="bg-gray-900 text-white pt-16 pb-8">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
         <div class="lg:col-span-1">
-          <div class="flex items-center gap-3 mb-6">
-            <img class="site-logo" src="logo.png" alt="HiCloud Insight" style="height: 28px; width: auto;">
-            <span class="site-name text-xl font-bold">HiCloud Insight</span>
-          </div>
-          <p class="text-gray-400 leading-relaxed mb-6">
+          <span class="text-xl font-bold block mb-6">HiCloud Insight</span>
+          <p class="text-gray-400 leading-relaxed">
             Empowering businesses worldwide with AI-driven marketing solutions 
             and cloud infrastructure excellence.
           </p>
-          <div class="flex gap-4">
-            <!-- LinkedIn -->
-            <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
-          </div>
         </div>
         
         <div>
@@ -646,8 +566,6 @@
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Performance Marketing</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Ad Exchange</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI Content Studio</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Data Analytics</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cloud Infrastructure</a></li>
           </ul>
         </div>
         
@@ -655,10 +573,15 @@
           <h4 class="font-semibold text-lg mb-6">Company</h4>
           <ul class="space-y-3">
             <li><a href="#about" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Careers</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Press</a></li>
             <li><a href="#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+            <li class="pt-2">
+              <a href="https://www.linkedin.com/company/hicloud-technology-ltd/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                LinkedIn
+              </a>
+            </li>
           </ul>
         </div>
         
@@ -667,28 +590,23 @@
           <ul class="space-y-3">
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
             <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Cookie Policy</a></li>
-            <li><a href="#" class="text-gray-400 hover:text-white transition-colors">GDPR</a></li>
           </ul>
         </div>
       </div>
       
       <div class="border-t border-gray-800 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p class="site-copyright text-gray-500 text-sm">
-            © 2026 HiCloud Insight. All rights reserved.
+        <div class="text-center">
+          <p class="text-gray-500 text-sm">
+            © <span id="currentYear"></span> HiCloud Insight. All rights reserved.
           </p>
-          <div class="flex gap-6 text-sm">
-            <a href="#" class="text-gray-500 hover:text-white transition-colors">Privacy</a>
-            <a href="#" class="text-gray-500 hover:text-white transition-colors">Terms</a>
-            <a href="#" class="text-gray-500 hover:text-white transition-colors">Cookies</a>
-          </div>
         </div>
       </div>
     </div>
   </footer>
-
   <script>
+    // 动态年份
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
     // 导航栏滚动效果
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -732,7 +650,73 @@
       card.style.opacity = '0';
       observer.observe(card);
     });
+    
+    // ========== 表单反垃圾验证 ==========
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      
+      const form = event.target;
+      const errorDiv = document.getElementById('formError');
+      const successDiv = document.getElementById('formSuccess');
+      
+      // 隐藏之前的消息
+      errorDiv.classList.add('hidden');
+      successDiv.classList.add('hidden');
+      
+      // 1. Honeypot 检查：如果隐藏字段被填写，说明是机器人
+      const honeypot = form.querySelector('#website');
+      if (honeypot && honeypot.value.trim() !== '') {
+        // 静默拒绝，不暴露反机器人机制
+        successDiv.textContent = 'Thank you! Your message has been sent.';
+        successDiv.classList.remove('hidden');
+        form.reset();
+        return false;
+      }
+      
+      // 2. 必填字段验证
+      const firstName = form.querySelector('[name="firstName"]');
+      const lastName = form.querySelector('[name="lastName"]');
+      const email = form.querySelector('[name="email"]');
+      const message = form.querySelector('[name="message"]');
+      
+      if (!firstName.value.trim() || !lastName.value.trim() || !email.value.trim() || !message.value.trim()) {
+        errorDiv.textContent = 'Please fill in all required fields.';
+        errorDiv.classList.remove('hidden');
+        return false;
+      }
+      
+      // 3. 邮箱格式验证
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value.trim())) {
+        errorDiv.textContent = 'Please enter a valid email address.';
+        errorDiv.classList.remove('hidden');
+        return false;
+      }
+      
+      // 4. 消息长度检查（防止过短的垃圾消息）
+      if (message.value.trim().length < 10) {
+        errorDiv.textContent = 'Please provide a more detailed message (at least 10 characters).';
+        errorDiv.classList.remove('hidden');
+        return false;
+      }
+      
+      // 5. 简单频率限制（同一会话内）
+      const lastSubmit = sessionStorage.getItem('lastFormSubmit');
+      const now = Date.now();
+      if (lastSubmit && (now - parseInt(lastSubmit)) < 30000) {
+        errorDiv.textContent = 'Please wait 30 seconds before submitting again.';
+        errorDiv.classList.remove('hidden');
+        return false;
+      }
+      
+      // 验证通过
+      sessionStorage.setItem('lastFormSubmit', now.toString());
+      successDiv.textContent = 'Thank you! Your message has been sent. We\'ll get back to you within 48 working hours.';
+      successDiv.classList.remove('hidden');
+      form.reset();
+      
+      return false;
+    }
   </script>
-
 </body>
 </html>
