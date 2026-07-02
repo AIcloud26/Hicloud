@@ -1,32 +1,31 @@
 // ============================================
 // HiCloud Insight 站点配置
-// 以后换LOGO、改站名、调配色，只改这个文件
 // ============================================
 window.SITE_CONFIG = {
-  // 站点基础信息
   siteName: "HiCloud Insight",
   siteTagline: "Global Digital Growth",
   
-  // LOGO 配置
   logo: {
-    src: "logo.png",       // LOGO 图片路径，换LOGO直接替换图片文件即可
+    src: "logo.png",
     alt: "HiCloud Insight",
-    width: "32px",         // 导航栏 LOGO 高度
-    footerWidth: "28px",   // 页脚 LOGO 高度
+    width: "48px",        // 导航栏LOGO加大
+    footerWidth: "40px",  // 页脚LOGO加大
   },
   
-  // 配色系统（蓝紫科技风，匹配 LOGO）
   colors: {
-    primary: "#6366F1",    // 主色：靛蓝
-    secondary: "#8B5CF6",  // 次色：紫罗兰
-    accent: "#A855F7",     // 强调色：紫
-    dark: "#1E1B4B",       // 深色背景
-    darkLight: "#312E81",  // 深色悬浮
-    gradient: "from-[#6366F1] via-[#8B5CF6] to-[#A855F7]", // Tailwind 渐变类
+    primary: "#4F6BFF",
+    secondary: "#6B5BFF",
+    accent: "#8B5CF6",
+    text: "#1F2937",
+    bg: "#F8FAFF",
+    cardBg: "#FFFFFF",
+    textSecondary: "#6B7280",
+    gradientStart: "#4F6BFF",
+    gradientMid: "#6B5BFF",
+    gradientEnd: "#8B5CF6",
   },
 };
 
-// 立即注入 CSS 变量（确保样式优先加载，避免闪烁）
 (function() {
   var c = window.SITE_CONFIG.colors;
   var style = document.createElement("style");
@@ -35,33 +34,38 @@ window.SITE_CONFIG = {
       --color-primary: ${c.primary};
       --color-secondary: ${c.secondary};
       --color-accent: ${c.accent};
-      --color-dark: ${c.dark};
-      --color-dark-light: ${c.darkLight};
+      --color-text: ${c.text};
+      --color-bg: ${c.bg};
+      --color-card-bg: ${c.cardBg};
+      --color-text-secondary: ${c.textSecondary};
     }
     .bg-gradient-brand {
-      background: linear-gradient(135deg, ${c.primary} 0%, ${c.secondary} 50%, ${c.accent} 100%);
+      background: linear-gradient(135deg, ${c.gradientStart} 0%, ${c.gradientMid} 50%, ${c.gradientEnd} 100%);
     }
     .text-gradient-brand {
-      background: linear-gradient(135deg, ${c.primary}, ${c.accent});
+      background: linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd});
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
     .hover\:text-gradient-brand:hover {
-      background: linear-gradient(135deg, ${c.primary}, ${c.accent});
+      background: linear-gradient(135deg, ${c.gradientStart}, ${c.gradientEnd});
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+    body {
+      color: ${c.text};
+      background-color: ${c.bg};
+    }
+    .text-secondary { color: ${c.textSecondary}; }
   `;
   document.head.appendChild(style);
 })();
 
-// DOM 加载完成后替换 LOGO 和文字
 document.addEventListener("DOMContentLoaded", function() {
   var cfg = window.SITE_CONFIG;
   
-  // 替换所有 .site-logo 图片
   document.querySelectorAll(".site-logo").forEach(function(img) {
     img.src = cfg.logo.src;
     img.alt = cfg.logo.alt;
@@ -74,11 +78,9 @@ document.addEventListener("DOMContentLoaded", function() {
     img.style.display = "block";
   });
   
-  // 替换站点名称
   document.querySelectorAll(".site-name").forEach(function(el) {
     el.textContent = cfg.siteName;
   });
   
-  // 更新页面标题
   document.title = cfg.siteName + " | " + cfg.siteTagline;
 });
