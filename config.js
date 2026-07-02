@@ -8,21 +8,24 @@ window.SITE_CONFIG = {
   logo: {
     src: "logo.png",
     alt: "HiCloud Insight",
-    width: "48px",        // 导航栏LOGO加大
-    footerWidth: "40px",  // 页脚LOGO加大
+    width: "48px",
+    footerWidth: "40px",
   },
   
   colors: {
-    primary: "#4F6BFF",
-    secondary: "#6B5BFF",
-    accent: "#8B5CF6",
-    text: "#1F2937",
-    bg: "#F8FAFF",
+    primary: "#2563EB",
+    secondary: "#3B82F6",
+    light: "#60A5FA",
+    accent: "#38BDF8",
+    dark: "#0F172A",
+    darkLight: "#1E293B",
+    pageBg: "#F8FAFC",
     cardBg: "#FFFFFF",
-    textSecondary: "#6B7280",
-    gradientStart: "#4F6BFF",
-    gradientMid: "#6B5BFF",
-    gradientEnd: "#8B5CF6",
+    textPrimary: "#111827",
+    textSecondary: "#64748B",
+    gradientStart: "#2563EB",
+    gradientMid: "#3B82F6",
+    gradientEnd: "#60A5FA",
   },
 };
 
@@ -33,10 +36,11 @@ window.SITE_CONFIG = {
     :root {
       --color-primary: ${c.primary};
       --color-secondary: ${c.secondary};
+      --color-light: ${c.light};
       --color-accent: ${c.accent};
-      --color-text: ${c.text};
-      --color-bg: ${c.bg};
+      --color-page-bg: ${c.pageBg};
       --color-card-bg: ${c.cardBg};
+      --color-text-primary: ${c.textPrimary};
       --color-text-secondary: ${c.textSecondary};
     }
     .bg-gradient-brand {
@@ -55,8 +59,8 @@ window.SITE_CONFIG = {
       background-clip: text;
     }
     body {
-      color: ${c.text};
-      background-color: ${c.bg};
+      color: ${c.textPrimary};
+      background-color: ${c.pageBg};
     }
     .text-secondary { color: ${c.textSecondary}; }
   `;
