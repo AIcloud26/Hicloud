@@ -11,8 +11,8 @@ window.SITE_CONFIG = {
   logo: {
     src: "logo.png",       // LOGO 图片路径，换LOGO直接替换图片文件即可
     alt: "HiCloud Insight",
-    width: "32px",         // 导航栏 LOGO 高度
-    footerWidth: "28px",   // 页脚 LOGO 高度
+    width: "48px",         // 导航栏 LOGO 高度（已从32px调大适配网站）
+    footerWidth: "28px",   // 页脚已改为纯文字品牌名，此字段保留备用
   },
   
   // 配色系统（蓝紫科技风，匹配 LOGO）
@@ -25,7 +25,6 @@ window.SITE_CONFIG = {
     gradient: "from-[#6366F1] via-[#8B5CF6] to-[#A855F7]", // Tailwind 渐变类
   },
 };
-
 // 立即注入 CSS 变量（确保样式优先加载，避免闪烁）
 (function() {
   var c = window.SITE_CONFIG.colors;
@@ -56,7 +55,6 @@ window.SITE_CONFIG = {
   `;
   document.head.appendChild(style);
 })();
-
 // DOM 加载完成后替换 LOGO 和文字
 document.addEventListener("DOMContentLoaded", function() {
   var cfg = window.SITE_CONFIG;
@@ -65,11 +63,7 @@ document.addEventListener("DOMContentLoaded", function() {
   document.querySelectorAll(".site-logo").forEach(function(img) {
     img.src = cfg.logo.src;
     img.alt = cfg.logo.alt;
-    if (img.closest("footer")) {
-      img.style.height = cfg.logo.footerWidth;
-    } else {
-      img.style.height = cfg.logo.width;
-    }
+    img.style.height = cfg.logo.width;
     img.style.width = "auto";
     img.style.display = "block";
   });
