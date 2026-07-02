@@ -8,6 +8,9 @@
   
   <script src="config.js"></script>
   
+  <!-- Google reCAPTCHA v2 -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -16,12 +19,11 @@
           colors: {
             primary: 'var(--color-primary)',
             secondary: 'var(--color-secondary)',
+            light: 'var(--color-light)',
             accent: 'var(--color-accent)',
-            dark: 'var(--color-dark)',
-            darkLight: 'var(--color-dark-light)',
-            pageBg: 'var(--color-bg)',
+            pageBg: 'var(--color-page-bg)',
             cardBg: 'var(--color-card-bg)',
-            textPrimary: 'var(--color-text)',
+            textPrimary: 'var(--color-text-primary)',
             textSecondary: 'var(--color-text-secondary)',
           },
           fontFamily: {
@@ -45,7 +47,7 @@
     .nav-scrolled {
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
-      box-shadow: 0 2px 20px rgba(79, 107, 255, 0.08);
+      box-shadow: 0 2px 20px rgba(37, 99, 235, 0.08);
     }
     
     @keyframes fadeInUp {
@@ -57,8 +59,8 @@
       50% { transform: translateY(-15px); }
     }
     @keyframes pulse-glow {
-      0%, 100% { box-shadow: 0 0 20px rgba(79, 107, 255, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.5); }
+      0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
+      50% { box-shadow: 0 0 40px rgba(96, 165, 250, 0.5); }
     }
     .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
     .animate-float { animation: float 6s ease-in-out infinite; }
@@ -74,11 +76,11 @@
     }
     .card-hover:hover {
       transform: translateY(-8px);
-      box-shadow: 0 25px 50px -12px rgba(79, 107, 255, 0.2);
+      box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.2);
     }
     
     .gradient-text {
-      background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+      background: linear-gradient(135deg, var(--color-primary), var(--color-light));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -86,39 +88,44 @@
     
     .bg-grid {
       background-image: 
-        linear-gradient(rgba(79, 107, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(79, 107, 255, 0.04) 1px, transparent 1px);
+        linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
       background-size: 50px 50px;
     }
     
-    /* 表单验证样式 */
-    .form-success { border-color: #10B981 !important; }
+    /* 表单样式 */
     .form-error { border-color: #EF4444 !important; }
-    .captcha-box {
+    .form-success { border-color: #10B981 !important; }
+    .error-msg { color: #EF4444; font-size: 13px; margin-top: 4px; display: none; }
+    .error-msg.show { display: block; }
+    
+    /* 复选框样式 */
+    .agree-label {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 16px;
-      background: #F8FAFF;
-      border: 1px solid #E5E7EB;
-      border-radius: 12px;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: #64748B;
+      line-height: 1.5;
+      cursor: pointer;
     }
-    .captcha-question {
-      font-weight: 500;
-      color: #1F2937;
-      white-space: nowrap;
+    .agree-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: #2563EB;
+      flex-shrink: 0;
+      cursor: pointer;
     }
-    .captcha-input {
-      width: 80px;
-      padding: 8px 12px;
-      border: 1px solid #E5E7EB;
-      border-radius: 8px;
-      font-size: 14px;
-      outline: none;
-      transition: border-color 0.2s;
+    .agree-label a {
+      color: #2563EB;
+      text-decoration: underline;
     }
-    .captcha-input:focus {
-      border-color: var(--color-primary);
+    
+    /* reCAPTCHA 容器 */
+    .recaptcha-wrap {
+      display: flex;
+      justify-content: center;
     }
   </style>
 </head>
@@ -128,12 +135,10 @@
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
-        <!-- LOGO（加大） -->
         <a href="#">
           <img class="site-logo" src="logo.png" alt="HiCloud Insight" style="height: 48px; width: auto;">
         </a>
         
-        <!-- 导航链接 -->
         <div class="hidden md:flex items-center gap-8">
           <a href="#services" class="text-textSecondary hover:text-primary transition-colors">Services</a>
           <a href="#solutions" class="text-textSecondary hover:text-primary transition-colors">Solutions</a>
@@ -166,7 +171,7 @@
   <!-- ========== Hero 区域 ========== -->
   <section class="relative min-h-screen flex items-center pt-20 bg-grid">
     <div class="absolute top-20 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-20 left-0 w-80 h-80 bg-accent/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 left-0 w-80 h-80 bg-light/10 rounded-full blur-3xl"></div>
     
     <div class="max-w-7xl mx-auto px-6 py-20 relative z-10">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
@@ -264,7 +269,6 @@
       </div>
       
       <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
-        <!-- Performance Marketing -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -278,7 +282,6 @@
           </p>
         </div>
         
-        <!-- Ad Exchange Platform -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -292,7 +295,6 @@
           </p>
         </div>
         
-        <!-- AI Content Studio -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -306,7 +308,6 @@
           </p>
         </div>
         
-        <!-- Global Expansion -->
         <div class="card-hover bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
           <div class="w-14 h-14 bg-gradient-brand rounded-xl flex items-center justify-center mb-6">
             <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -465,7 +466,7 @@
         </div>
         <div class="relative">
           <div class="absolute -top-10 -left-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"></div>
-          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"></div>
+          <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-light/20 rounded-full blur-3xl"></div>
           <div class="relative grid grid-cols-2 gap-4">
             <div class="space-y-4">
               <div class="h-48 bg-gradient-brand rounded-2xl"></div>
@@ -504,7 +505,7 @@
     </div>
   </section>
 
-  <!-- ========== Contact（带HUMAN验证） ========== -->
+  <!-- ========== Contact（reCAPTCHA + 条款勾选 + 完整验证） ========== -->
   <section id="contact" class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid lg:grid-cols-2 gap-16">
@@ -560,68 +561,73 @@
           </div>
         </div>
         
-        <!-- 联系表单 + HUMAN验证 -->
+        <!-- 表单 -->
         <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100">
-          <form id="contactForm" class="space-y-6" onsubmit="return handleSubmit(event)">
-            <div class="grid md:grid-cols-2 gap-6">
+          <form id="contactForm" class="space-y-5" novalidate>
+            <div class="grid md:grid-cols-2 gap-5">
               <div>
-                <label class="block text-sm font-medium text-textPrimary mb-2">First Name</label>
-                <input type="text" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="John">
+                <label class="block text-sm font-medium text-textPrimary mb-2">First Name <span class="text-red-500">*</span></label>
+                <input type="text" name="firstName" required class="form-input w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="John">
+                <p class="error-msg">Please enter your first name.</p>
               </div>
               <div>
-                <label class="block text-sm font-medium text-textPrimary mb-2">Last Name</label>
-                <input type="text" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Doe">
+                <label class="block text-sm font-medium text-textPrimary mb-2">Last Name <span class="text-red-500">*</span></label>
+                <input type="text" name="lastName" required class="form-input w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Doe">
+                <p class="error-msg">Please enter your last name.</p>
               </div>
             </div>
             <div>
-              <label class="block text-sm font-medium text-textPrimary mb-2">Work Email</label>
-              <input type="email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="john@company.com">
+              <label class="block text-sm font-medium text-textPrimary mb-2">Work Email <span class="text-red-500">*</span></label>
+              <input type="email" name="email" required class="form-input w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="john@company.com">
+              <p class="error-msg">Please enter a valid email address.</p>
             </div>
             <div>
-              <label class="block text-sm font-medium text-textPrimary mb-2">Company</label>
-              <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Your Company">
+              <label class="block text-sm font-medium text-textPrimary mb-2">Company <span class="text-red-500">*</span></label>
+              <input type="text" name="company" required class="form-input w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all" placeholder="Your Company">
+              <p class="error-msg">Please enter your company name.</p>
             </div>
             <div>
-              <label class="block text-sm font-medium text-textPrimary mb-2">Service Interest</label>
-              <select class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
-                <option>Performance Marketing</option>
-                <option>Ad Exchange Platform</option>
-                <option>AI Content Studio</option>
-                <option>Global Expansion</option>
-                <option>Other</option>
+              <label class="block text-sm font-medium text-textPrimary mb-2">Service Interest <span class="text-red-500">*</span></label>
+              <select name="service" required class="form-input w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all">
+                <option value="">-- Select a service --</option>
+                <option value="performance">Performance Marketing</option>
+                <option value="exchange">Ad Exchange Platform</option>
+                <option value="ai">AI Content Studio</option>
+                <option value="expansion">Global Expansion</option>
+                <option value="other">Other</option>
               </select>
+              <p class="error-msg">Please select a service.</p>
             </div>
             <div>
-              <label class="block text-sm font-medium text-textPrimary mb-2">Message</label>
-              <textarea rows="4" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+              <label class="block text-sm font-medium text-textPrimary mb-2">Message <span class="text-red-500">*</span></label>
+              <textarea name="message" rows="4" required class="form-input w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none transition-all resize-none" placeholder="Tell us about your project..."></textarea>
+              <p class="error-msg">Please enter your message.</p>
             </div>
             
-            <!-- HUMAN 验证 -->
-            <div>
-              <label class="block text-sm font-medium text-textPrimary mb-2">Human Verification</label>
-              <div class="captcha-box">
-                <span class="captcha-question" id="captchaQuestion"></span>
-                <input type="text" id="captchaInput" class="captcha-input" placeholder="?" required>
-                <button type="button" onclick="generateCaptcha()" class="text-primary hover:text-accent transition-colors" title="Refresh">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
-                  </svg>
-                </button>
-              </div>
-              <p id="captchaError" class="text-red-500 text-sm mt-2 hidden">Incorrect answer, please try again.</p>
+            <!-- Google reCAPTCHA v2 -->
+            <div class="recaptcha-wrap">
+              <div class="g-recaptcha" data-sitekey="YOUR_RECAPTCHA_SITE_KEY"></div>
             </div>
+            <p id="recaptchaError" class="error-msg text-center">Please complete the reCAPTCHA verification.</p>
+            
+            <!-- 条款勾选 -->
+            <label class="agree-label">
+              <input type="checkbox" id="agreeCheckbox">
+              <span>I have read and agree to the <a href="#" target="_blank">Terms of Use</a> and acknowledge that my personal data will be processed in accordance with the <a href="#" target="_blank">Privacy Policy</a>.</span>
+            </label>
+            <p id="agreeError" class="error-msg">You must agree to the terms before submitting.</p>
             
             <button type="submit" id="submitBtn" class="w-full py-4 bg-gradient-brand text-white rounded-xl font-semibold hover:opacity-90 transition-all transform hover:scale-[1.02]">
               Send Message
             </button>
-            <p id="formSuccess" class="text-green-600 text-sm text-center hidden">Message sent successfully! We'll get back to you soon.</p>
+            <p id="formSuccess" class="text-green-600 text-sm text-center hidden">✓ Message sent successfully! We'll get back to you within 48 working hours.</p>
           </form>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========== Footer（浅色背景，LOGO清晰） ========== -->
+  <!-- ========== Footer（浅色背景） ========== -->
   <footer class="bg-pageBg border-t border-gray-200 pt-16 pb-8">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -665,7 +671,6 @@
         </div>
       </div>
       
-      <!-- 版权（居中 + 年份自动） -->
       <div class="border-t border-gray-200 pt-8">
         <div class="flex justify-center">
           <p class="text-textSecondary text-sm">
@@ -677,33 +682,21 @@
   </footer>
 
   <script>
-    // 导航栏滚动效果
+    // 导航栏
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('nav-scrolled');
-      } else {
-        navbar.classList.remove('nav-scrolled');
-      }
+      navbar.classList.toggle('nav-scrolled', window.scrollY > 50);
     });
     
     // 移动端菜单
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    mobileMenuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
+    mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
     mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
-      });
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
     });
     
     // 滚动动画
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -711,74 +704,124 @@
           entry.target.style.opacity = '1';
         }
       });
-    }, observerOptions);
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.card-hover').forEach(card => {
       card.style.opacity = '0';
       observer.observe(card);
     });
     
-    // ===== 版权年份自动更新 =====
+    // 年份自动更新
     document.getElementById('copyrightYear').textContent = new Date().getFullYear();
     
-    // ===== HUMAN 验证（数学验证码） =====
-    let captchaAnswer = 0;
+    // ========== 表单验证 ==========
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
     
-    function generateCaptcha() {
-      const a = Math.floor(Math.random() * 10) + 1;
-      const b = Math.floor(Math.random() * 10) + 1;
-      captchaAnswer = a + b;
-      document.getElementById('captchaQuestion').textContent = `${a} + ${b} =`;
-      document.getElementById('captchaInput').value = '';
-      document.getElementById('captchaError').classList.add('hidden');
+    // 邮箱正则（严格模式）
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    function showError(input, show) {
+      const errorMsg = input.parentElement.querySelector('.error-msg');
+      if (show) {
+        input.classList.add('form-error');
+        input.classList.remove('form-success');
+        if (errorMsg) errorMsg.classList.add('show');
+      } else {
+        input.classList.remove('form-error');
+        input.classList.add('form-success');
+        if (errorMsg) errorMsg.classList.remove('show');
+      }
     }
     
-    // 初始化验证码
-    generateCaptcha();
+    // 实时校验：失焦时验证单个字段
+    form.querySelectorAll('.form-input').forEach(input => {
+      input.addEventListener('blur', function() {
+        if (this.type === 'email') {
+          showError(this, !this.value.trim() || !emailRegex.test(this.value.trim()));
+        } else if (this.tagName === 'SELECT') {
+          showError(this, !this.value);
+        } else {
+          showError(this, !this.value.trim());
+        }
+      });
+      // 输入时清除错误状态
+      input.addEventListener('input', function() {
+        this.classList.remove('form-error');
+        const errorMsg = this.parentElement.querySelector('.error-msg');
+        if (errorMsg) errorMsg.classList.remove('show');
+      });
+    });
     
-    // ===== 表单提交处理（含反刷验证） =====
-    function handleSubmit(event) {
-      event.preventDefault();
+    // 表单提交
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
       
-      const userAnswer = parseInt(document.getElementById('captchaInput').value, 10);
-      const errorEl = document.getElementById('captchaError');
+      let isValid = true;
       
-      if (isNaN(userAnswer) || userAnswer !== captchaAnswer) {
-        errorEl.classList.remove('hidden');
-        document.getElementById('captchaInput').classList.add('form-error');
-        generateCaptcha();
-        return false;
+      // 1. 校验所有必填字段
+      form.querySelectorAll('.form-input').forEach(input => {
+        let fieldValid = false;
+        if (input.type === 'email') {
+          fieldValid = input.value.trim() && emailRegex.test(input.value.trim());
+        } else if (input.tagName === 'SELECT') {
+          fieldValid = !!input.value;
+        } else {
+          fieldValid = !!input.value.trim();
+        }
+        showError(input, !fieldValid);
+        if (!fieldValid) isValid = false;
+      });
+      
+      // 2. 校验 reCAPTCHA
+      const recaptchaResponse = grecaptcha.getResponse();
+      const recaptchaErrorEl = document.getElementById('recaptchaError');
+      if (!recaptchaResponse) {
+        recaptchaErrorEl.classList.add('show');
+        isValid = false;
+      } else {
+        recaptchaErrorEl.classList.remove('show');
       }
       
-      // 验证通过
-      errorEl.classList.add('hidden');
-      document.getElementById('captchaInput').classList.remove('form-error');
-      document.getElementById('captchaInput').classList.add('form-success');
+      // 3. 校验条款勾选
+      const agreeCheckbox = document.getElementById('agreeCheckbox');
+      const agreeErrorEl = document.getElementById('agreeError');
+      if (!agreeCheckbox.checked) {
+        agreeErrorEl.classList.add('show');
+        isValid = false;
+      } else {
+        agreeErrorEl.classList.remove('show');
+      }
       
-      // 禁用提交按钮，防重复点击
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.textContent = 'Sending...';
+      if (!isValid) {
+        // 滚动到第一个错误
+        const firstError = form.querySelector('.form-error, #recaptchaError.show, #agreeError.show');
+        if (firstError) firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
       
-      // 模拟发送（实际对接后端接口时替换这里）
+      // 验证全部通过，发送
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.classList.add('opacity-60');
+      
+      // TODO: 这里替换为实际的邮件发送接口
+      // 例如: fetch('/api/contact', { method: 'POST', body: new FormData(form) })
       setTimeout(() => {
         document.getElementById('formSuccess').classList.remove('hidden');
-        btn.textContent = 'Sent ✓';
-        btn.classList.add('opacity-60');
+        submitBtn.textContent = 'Sent ✓';
         
-        // 3秒后重置表单
+        // 5秒后重置
         setTimeout(() => {
-          document.getElementById('contactForm').reset();
+          form.reset();
+          grecaptcha.reset();
           document.getElementById('formSuccess').classList.add('hidden');
-          btn.disabled = false;
-          btn.textContent = 'Send Message';
-          btn.classList.remove('opacity-60');
-          document.getElementById('captchaInput').classList.remove('form-success');
-          generateCaptcha();
-        }, 3000);
-      }, 1200);
-      
-      return false;
-    }
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+          submitBtn.classList.remove('opacity-60');
+          form.querySelectorAll('.form-input').forEach(input => input.classList.remove('form-success'));
+        }, 5000);
+      }, 1500);
+    });
   </script>
 
 </body>
